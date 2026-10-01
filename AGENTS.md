@@ -17,14 +17,41 @@ idempotência), boas práticas de arquitetura e histórico de commits legível.
 > **Regra de ouro:** prefira clareza e explicabilidade à esperteza. Cada decisão de arquitetura deve
 > ser **explicável em voz alta** sem consultar o código (é o critério de pronto do projeto).
 
-## Relação com o repositório de carreira
+## Relação com o repositório de carreira (fonte da verdade)
 
-O plano de origem, o método e o status vivem em `carreira/projetos-portfolio/01-api-b2b/plano.md`.
-Este repositório é a **cópia executável detalhada** desse plano:
+`api-b2b` **não define sozinho** o que deve ter. Ele é uma peça de portfólio guiada pelo repositório
+de carreira (`../carreira/`): é de lá que vêm as **habilidades e tecnologias** que este projeto
+precisa provar, os **gaps** que ele fecha e o **método** que rege o trabalho.
 
-- `PLANO.md` — fases, escopo, tecnologias, critério de pronto e progresso (espelha o plano de origem).
-- `docs/` — o detalhamento que não cabe no plano de origem (arquitetura, domínio, contratos, ADRs).
-- Ao concluir uma fase, marque aqui **e** atualize o status no plano de origem.
+> **Regra:** antes de decidir **o que** construir, **qual** tecnologia usar ou **como** priorizar,
+> consulte o `../carreira/` e mantenha o que está aqui alinhado com o que está lá. Na dúvida de
+> direcionamento, o `carreira` decide — **não distancie o projeto do objetivo proposto lá**.
+
+De lá, os pontos que mais importam:
+
+- `../carreira/projetos-portfolio/01-api-b2b/plano.md` — plano de origem deste projeto (fases,
+  escopo, tecnologias, critério de pronto, status). É a **referência de objetivo**.
+- `../carreira/perfil/habilidades.md` — o que o projeto deve **provar** (nível atual e gap).
+- `../carreira/perfil/recursos-estudo.md` — bibliografia de apoio por fase (consulta sob demanda).
+- `../carreira/projetos-portfolio/README.md` — gaps/vagas que motivaram o projeto e o que **não**
+  vira projeto.
+- `../carreira/vagas/` (seção "Cobertura da vaga") — requisitos reais das vagas alvo.
+- `../carreira/planejamento/decisoes.md` e `../carreira/planejamento/filosofia-busca.md` — premissas
+  imutáveis (remoto-BR, sem burocracia portuguesa, somente PJ) e método (projeto-primeiro, com o
+  funil tendo precedência).
+
+Regras desta relação:
+
+- **Não distanciar do objetivo.** Não adicione tecnologia, fase ou escopo que não sirva ao que o
+  `carreira` define; se achar que algo falta ou deveria mudar, **pergunte** antes de alterar o rumo.
+- **Não trocar a stack-alvo** (NestJS, GraphQL, Prisma, PostgreSQL, Redis, Jest, Docker, CI/CD) por
+  conveniência ou preferência pessoal: ela existe para fechar gaps específicos das vagas.
+- **Este repo é a cópia executável detalhada** do plano de origem:
+  - `PLANO.md` — fases, escopo, tecnologias, critério de pronto e progresso (espelha o plano de origem).
+  - `docs/` — o detalhamento que não cabe no plano de origem (arquitetura, domínio, contratos, ADRs).
+  - Ao concluir uma fase, marque aqui **e** atualize o status no plano de origem.
+- Se houver **conflito** entre este repo e o `carreira`, o `carreira` vence, e o conflito deve ser
+  apontado ao usuário antes de seguir.
 
 ## Contexto de domínio
 
@@ -140,6 +167,8 @@ Valem para **README, docs, mensagens e qualquer texto público**:
 
 ## Verificação ao concluir uma edição
 
+- [ ] O que foi feito continua **alinhado ao `carreira`** (objetivo, habilidades e tecnologias do
+      `../carreira/projetos-portfolio/01-api-b2b/plano.md`), sem distanciar do proposto?
 - [ ] `npm run lint`, `npm run typecheck`, `npm run test` e `npm run build` passam (quando houver código).
 - [ ] A regra de dependência foi respeitada (`domain/` sem framework)?
 - [ ] A nova regra de negócio tem teste?

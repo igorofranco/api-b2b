@@ -78,4 +78,4 @@ TBD (URL pública na Fase 6).
 ## Origem do projeto
 
 Plano de origem (fonte da verdade de método e status) no repositório de carreira:
-`carreira/projetos-portfolio/01-api-b2b/plano.md`.
+`../carreira/projetos-portfolio/01-api-b2b/plano.md`.

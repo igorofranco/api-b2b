@@ -1,6 +1,6 @@
 <!--
 PLANO.md — plano de construção e progresso do api-b2b.
-Espelha o plano de origem (carreira/projetos-portfolio/01-api-b2b/plano.md) e o detalha.
+Espelha o plano de origem (../carreira/projetos-portfolio/01-api-b2b/plano.md) e o detalha.
 Marque os itens com [x] ao concluir cada um. Texto em pt-BR.
 -->
 
@@ -11,7 +11,7 @@ Marque os itens com [x] ao concluir cada um. Texto em pt-BR.
 > Objetivo: provar Node/NestJS + GraphQL + Prisma + Postgres + Redis + Jest + Docker + CI/CD, com
 > regra de negócio real e decisões **explicáveis em voz alta**.
 >
-> **Fonte da verdade de método e status:** `carreira/projetos-portfolio/01-api-b2b/plano.md`.
+> **Fonte da verdade de método e status:** `../carreira/projetos-portfolio/01-api-b2b/plano.md`.
 > Este arquivo é a cópia executável, com o detalhamento por tarefa.
 
 Atualizado em 2026-10-01.
@@ -21,7 +21,7 @@ Atualizado em 2026-10-01.
 - **Escopo fechado por fase.** Nada de "explorar" ou "aprofundar": ou tem entrega verificável, ou não é fase.
 - **Artefato ao fim de cada fase** (commit, PR, README, demo). Fase sem artefato não fecha.
 - **Material sob demanda.** Se travar num conceito, consulte a bibliografia da fase
-  (`carreira/perfil/recursos-estudo.md`) e volte a implementar.
+  (`../carreira/perfil/recursos-estudo.md`) e volte a implementar.
 - **Sem quebrar o funil.** O bloco de projeto é 2h/dia; o funil da busca ativa tem precedência.
 - **Teto de 2h/dia (bloco 1).** Se uma fase não caiba na estimativa, divida em duas; não estenda a fase.
 
@@ -76,7 +76,7 @@ Tarefas:
 - [ ] Repositório público no GitHub e CI verde no primeiro push
 
 *Consulta sob demanda:* NestJS fundamentos, TS strict, Jest setup, Docker Compose, GitHub Actions —
-`carreira/perfil/recursos-estudo.md`, Fase 0.
+`../carreira/perfil/recursos-estudo.md`, Fase 0.
 
 ---
 
@@ -104,7 +104,7 @@ Tarefas:
 - [ ] Fakes/in-memory repositories reutilizáveis nos testes
 
 *Consulta sob demanda:* Clean Architecture, Prisma + NestJS, modelagem/indexação Postgres —
-`carreira/perfil/recursos-estudo.md`, Fase 1.
+`../carreira/perfil/recursos-estudo.md`, Fase 1.
 
 ---
 
@@ -132,7 +132,7 @@ Tarefas:
 - [ ] Documentação da API (Swagger/OpenAPI) exposta em `/docs`
 - [ ] Testes e2e (supertest): login, 401 sem token, 403 de papel, validação de payload
 
-*Consulta sob demanda:* NestJS auth/RBAC e validação — `carreira/perfil/recursos-estudo.md`, Fase 2.
+*Consulta sob demanda:* NestJS auth/RBAC e validação — `../carreira/perfil/recursos-estudo.md`, Fase 2.
 
 ---
 
@@ -156,7 +156,7 @@ Tarefas:
 - [ ] Testes dos resolvers + teste que comprova ausência de N+1 (contador de queries)
 - [ ] Playground/Apollo Sandbox habilitado em dev com exemplos no README
 
-*Consulta sob demanda:* GraphQL code-first, Apollo, DataLoader — `carreira/perfil/recursos-estudo.md`, Fase 3.
+*Consulta sob demanda:* GraphQL code-first, Apollo, DataLoader — `../carreira/perfil/recursos-estudo.md`, Fase 3.
 
 ---
 
@@ -183,7 +183,7 @@ Tarefas:
 - [ ] Testes de concorrência (criações simultâneas) e de idempotência (retry)
 - [ ] REST de pedidos: criar, listar, detalhar, aprovar, rejeitar, cancelar
 
-*Consulta sob demanda:* Redis, BullMQ, idempotência — `carreira/perfil/recursos-estudo.md`, Fase 4.
+*Consulta sob demanda:* Redis, BullMQ, idempotência — `../carreira/perfil/recursos-estudo.md`, Fase 4.
 
 ---
 
@@ -204,7 +204,7 @@ Tarefas:
 - [ ] Thresholds de cobertura no Jest e no CI
 - [ ] Cobertura reportada no README (badge ou tabela)
 
-*Consulta sob demanda:* Jest, e2e com supertest, thresholds — `carreira/perfil/recursos-estudo.md`, Fase 5.
+*Consulta sob demanda:* Jest, e2e com supertest, thresholds — `../carreira/perfil/recursos-estudo.md`, Fase 5.
 
 ---
 
@@ -227,9 +227,9 @@ Tarefas:
 - [ ] Deploy automatizado no GitHub Actions ao dar merge na main
 - [ ] URL pública + link no README e no perfil de portfólio
 - [ ] README final: impacto do produto, domínio, decisões de arquitetura, como rodar, link da demo
-- [ ] Registrar o projeto em `carreira/perfil/habilidades.md` e no índice de portfólio
+- [ ] Registrar o projeto em `../carreira/perfil/habilidades.md` e no índice de portfólio
 
-*Consulta sob demanda:* deploy, observabilidade, README — `carreira/perfil/recursos-estudo.md`, Fase 6.
+*Consulta sob demanda:* deploy, observabilidade, README — `../carreira/perfil/recursos-estudo.md`, Fase 6.
 
 ---
 
@@ -241,7 +241,7 @@ Tarefas:
 - [ ] README com impacto antes de stack
 - [ ] REST e GraphQL funcionando sobre o mesmo domínio
 - [ ] Decisões explicáveis em voz alta sem consultar o código (Clean Architecture, DataLoader, idempotência)
-- [ ] Registrado em `carreira/perfil/habilidades.md` (evidência) e no índice de portfólio
+- [ ] Registrado em `../carreira/perfil/habilidades.md` (evidência) e no índice de portfólio
 
 ## Estimativa
 
@@ -262,11 +262,11 @@ A 2h/dia (bloco 1), o projeto fecha em **4 a 5 semanas** (~18–22 dias úteis):
 
 ## Referências
 
-- Plano de origem (fonte da verdade): `carreira/projetos-portfolio/01-api-b2b/plano.md`
-- Índice de portfólio: `carreira/projetos-portfolio/README.md`
-- Rotina do dia: `carreira/planejamento/cronograma.md`
-- Método: `carreira/planejamento/filosofia-busca.md`
-- Bibliografia de apoio: `carreira/perfil/recursos-estudo.md`
-- Habilidades e evidências: `carreira/perfil/habilidades.md`
+- Plano de origem (fonte da verdade): `../carreira/projetos-portfolio/01-api-b2b/plano.md`
+- Índice de portfólio: `../carreira/projetos-portfolio/README.md`
+- Rotina do dia: `../carreira/planejamento/cronograma.md`
+- Método: `../carreira/planejamento/filosofia-busca.md`
+- Bibliografia de apoio: `../carreira/perfil/recursos-estudo.md`
+- Habilidades e evidências: `../carreira/perfil/habilidades.md`
 - Documentos deste repo: `docs/arquitetura.md`, `docs/dominio.md`, `docs/contratos-api.md`,
   `docs/decisoes.md`, `docs/backlog.md`, `docs/defesa-entrevista.md`
