@@ -10,7 +10,7 @@ Plano e progresso: PLANO.md. Arquitetura: docs/arquitetura.md.
 
 `api-b2b` é uma **peça de portfólio** de uma busca ativa por vagas **remotas (Brasil), PJ**, de
 desenvolvedor **backend/fullstack pleno-sênior** em Node.js. O objetivo não é um produto comercial:
-é uma **prova** de domínio da stack (NestJS, GraphQL, Prisma, PostgreSQL, Redis, Jest, Docker,
+é uma **prova** de domínio da stack (NestJS, GraphQL, Prisma, PostgreSQL, Redis, Vitest, Docker,
 CI/CD) com **regra de negócio real** (preço por contrato, limite de crédito, reserva de estoque,
 idempotência), boas práticas de arquitetura e histórico de commits legível.
 
@@ -44,8 +44,10 @@ Regras desta relação:
 
 - **Não distanciar do objetivo.** Não adicione tecnologia, fase ou escopo que não sirva ao que o
   `carreira` define; se achar que algo falta ou deveria mudar, **pergunte** antes de alterar o rumo.
-- **Não trocar a stack-alvo** (NestJS, GraphQL, Prisma, PostgreSQL, Redis, Jest, Docker, CI/CD) por
-  conveniência ou preferência pessoal: ela existe para fechar gaps específicos das vagas.
+- **Não trocar a stack-alvo** (NestJS, GraphQL, Prisma, PostgreSQL, Redis, Docker, CI/CD) por
+  conveniência ou preferência pessoal: ela existe para fechar gaps específicos das vagas. O tooling
+  de teste/lint atual (`Vitest` + `oxlint`) desvia do plano de origem (`Jest` + `ESLint`) por decisão
+  registrada na **ADR nº 11** (`docs/decisoes.md`) — alinhar com o `carreira` antes de mudar de novo.
 - **Este repo é a cópia executável detalhada** do plano de origem:
   - `PLANO.md` — fases, escopo, tecnologias, critério de pronto e progresso (espelha o plano de origem).
   - `docs/` — o detalhamento que não cabe no plano de origem (arquitetura, domínio, contratos, ADRs).
@@ -75,7 +77,7 @@ Detalhamento completo (entidades, invariantes, ERD): `docs/dominio.md`.
   **sem N+1** (DataLoader comprovado).
 - **Pedidos:** criação com preço vigente por cliente, confirmação dentro do limite ou aprovação,
   reserva de estoque à prova de concorrência e criação idempotente.
-- **Qualidade:** Jest unit (casos de uso sem banco) + e2e (supertest), thresholds de cobertura no CI.
+- **Qualidade:** Vitest unit (casos de uso sem banco) + e2e (supertest), thresholds de cobertura no CI.
 - **Entrega:** deploy em VPS (Docker + systemd), health checks, logs estruturados, README com impacto
   antes de stack.
 
@@ -88,7 +90,7 @@ Plano por fases e progresso: `PLANO.md`.
 - PostgreSQL + Prisma (schema, migrations, seed)
 - REST versionado (`/api/v1`) + GraphQL code-first (Apollo) + DataLoader
 - Redis (cache de catálogo + chave de idempotência; BullMQ só se necessário)
-- Jest + supertest; ESLint (flat) + Prettier
+- Vitest + supertest; oxlint (type-aware) + Prettier
 - Docker Compose (dev) e Docker + systemd (VPS); GitHub Actions (lint + typecheck + test + build + deploy)
 
 ## Arquitetura (regra de dependência)
@@ -112,11 +114,16 @@ Estrutura de pastas, fluxo de uma requisição e estratégia de testes: `docs/ar
 
 ## Estado atual
 
-- **Fase 0 (Fundação)** — não iniciado. Nenhum código ainda; só documentação de planejamento.
+- **Fase 0 (Fundação)** — em andamento.
+- Base no ar: NestJS 12 (ESM) + TypeScript 6 strict (+ checagens extras), `src/` e `test/` gerados.
+- Tooling de qualidade: oxlint `--type-aware`, Prettier, Vitest (unit + e2e) com cobertura — ver
+  **ADR nº 11** (`docs/decisoes.md`).
+- `lint`, `typecheck`, `test`, `test:e2e`, `test:coverage`, `build` e `format:check` passando.
+- Pendente na Fase 0: endpoint `/health`, `Dockerfile`/`docker-compose.yml` e GitHub Actions.
 
 ## Comandos
 
-> Definidos no `PLANO.md` (Fase 0) e implementados no `package.json`. Ainda não existem.
+> Implementados no `package.json` (Fase 0).
 
 | Ação       | Comando                 |
 | ---------- | ----------------------- |

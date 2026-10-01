@@ -8,7 +8,7 @@ Marque os itens com [x] ao concluir cada um. Texto em pt-BR.
 
 > API B2B de catálogo e pedidos: preço por contrato, aprovação por limite de crédito e reserva de
 > estoque na confirmação, exposta em **REST e GraphQL sobre o mesmo domínio**.
-> Objetivo: provar Node/NestJS + GraphQL + Prisma + Postgres + Redis + Jest + Docker + CI/CD, com
+> Objetivo: provar Node/NestJS + GraphQL + Prisma + Postgres + Redis + testes + Docker + CI/CD, com
 > regra de negócio real e decisões **explicáveis em voz alta**.
 >
 > **Fonte da verdade de método e status:** `../carreira/projetos-portfolio/01-api-b2b/plano.md`.
@@ -38,15 +38,15 @@ Detalhamento: domínio em `docs/dominio.md`, contratos em `docs/contratos-api.md
 
 ## Progresso das fases
 
-| Fase | Nome | Status | Artefato |
-|---|---|---|---|
-| 0 | Fundação | não iniciada | repo público + CI verde |
-| 1 | Domínio e camadas | não iniciada | PR domínio + persistência testados |
-| 2 | Auth e REST base | não iniciada | PR auth + REST com e2e |
-| 3 | GraphQL | não iniciada | PR schema + DataLoader + teste de N+1 |
-| 4 | Pedidos e Redis | não iniciada | PR fluxo de pedidos + concorrência/idempotência |
-| 5 | Testes e cobertura | não iniciada | PR consolidação + cobertura no README |
-| 6 | Deploy e doc | não iniciada | demo no ar + README |
+| Fase | Nome               | Status       | Artefato                                        |
+| ---- | ------------------ | ------------ | ----------------------------------------------- |
+| 0    | Fundação           | em andamento | repo público + CI verde                         |
+| 1    | Domínio e camadas  | não iniciada | PR domínio + persistência testados              |
+| 2    | Auth e REST base   | não iniciada | PR auth + REST com e2e                          |
+| 3    | GraphQL            | não iniciada | PR schema + DataLoader + teste de N+1           |
+| 4    | Pedidos e Redis    | não iniciada | PR fluxo de pedidos + concorrência/idempotência |
+| 5    | Testes e cobertura | não iniciada | PR consolidação + cobertura no README           |
+| 6    | Deploy e doc       | não iniciada | demo no ar + README                             |
 
 ---
 
@@ -54,8 +54,9 @@ Detalhamento: domínio em `docs/dominio.md`, contratos em `docs/contratos-api.md
 
 - **Escopo:** repositório, projeto NestJS, padrões de qualidade, ambiente de dev e CI rodando.
   **Fora:** qualquer regra de negócio.
-- **Tecnologias a implementar:** NestJS, TypeScript strict, ESLint + Prettier, Jest, Docker Compose,
-  GitHub Actions.
+- **Tecnologias a implementar:** NestJS, TypeScript strict, oxlint + Prettier, Vitest, Docker Compose,
+  GitHub Actions. _(Tooling de teste/lint alterado em relação ao plano de origem: ver ADR nº 11 em
+  `docs/decisoes.md`.)_
 - **Critério de pronto:** `docker compose up` sobe a API; `npm run lint/typecheck/test/build` passam;
   CI verde no GitHub em push e PR.
 - **Artefato:** repositório público + workflow verde (badge no README).
@@ -63,19 +64,19 @@ Detalhamento: domínio em `docs/dominio.md`, contratos em `docs/contratos-api.md
 
 Tarefas:
 
-- [ ] `git init`, `.gitignore`, `.node-version`, `opencode.jsonc` e estrutura de pastas
-- [ ] Projeto NestJS criado; `main.ts` e `AppModule`
-- [ ] `tsconfig.json` em modo strict (`strict`, `noUncheckedIndexedAccess`, `exactOptionalPropertyTypes`)
-- [ ] ESLint (flat) + Prettier configurados (`lint`, `format`, `format:check`)
-- [ ] Jest configurado (unit + e2e) com script de cobertura
-- [ ] `.env.example` com as variáveis de ambiente (sem segredos reais)
+- [x] `git init`, `.gitignore`, `.node-version`, `opencode.jsonc` e estrutura de pastas
+- [x] Projeto NestJS criado; `main.ts` e `AppModule`
+- [x] `tsconfig.json` em modo strict (`strict`, `noUncheckedIndexedAccess`, `exactOptionalPropertyTypes`)
+- [x] Lint + Prettier configurados (`lint`, `format`, `format:check`) — oxlint type-aware (ADR nº 11)
+- [x] Testes configurados (unit + e2e) com script de cobertura — Vitest (ADR nº 11)
+- [x] `.env.example` com as variáveis de ambiente (sem segredos reais)
 - [ ] `Dockerfile` de dev e `docker-compose.yml` com a API (Postgres e Redis entram na Fase 1/4)
 - [ ] Endpoint de health (`/health`) respondendo
 - [ ] GitHub Actions: `lint + typecheck + test + build` em push e PR
 - [ ] README inicial (o que é, como rodar) e badge do CI
 - [ ] Repositório público no GitHub e CI verde no primeiro push
 
-*Consulta sob demanda:* NestJS fundamentos, TS strict, Jest setup, Docker Compose, GitHub Actions —
+_Consulta sob demanda:_ NestJS fundamentos, TS strict, Vitest setup, Docker Compose, GitHub Actions —
 `../carreira/perfil/recursos-estudo.md`, Fase 0.
 
 ---
@@ -103,7 +104,7 @@ Tarefas:
 - [ ] Testes unitários dos casos de uso com repositórios em memória (sem banco)
 - [ ] Fakes/in-memory repositories reutilizáveis nos testes
 
-*Consulta sob demanda:* Clean Architecture, Prisma + NestJS, modelagem/indexação Postgres —
+_Consulta sob demanda:_ Clean Architecture, Prisma + NestJS, modelagem/indexação Postgres —
 `../carreira/perfil/recursos-estudo.md`, Fase 1.
 
 ---
@@ -132,7 +133,7 @@ Tarefas:
 - [ ] Documentação da API (Swagger/OpenAPI) exposta em `/docs`
 - [ ] Testes e2e (supertest): login, 401 sem token, 403 de papel, validação de payload
 
-*Consulta sob demanda:* NestJS auth/RBAC e validação — `../carreira/perfil/recursos-estudo.md`, Fase 2.
+_Consulta sob demanda:_ NestJS auth/RBAC e validação — `../carreira/perfil/recursos-estudo.md`, Fase 2.
 
 ---
 
@@ -156,7 +157,7 @@ Tarefas:
 - [ ] Testes dos resolvers + teste que comprova ausência de N+1 (contador de queries)
 - [ ] Playground/Apollo Sandbox habilitado em dev com exemplos no README
 
-*Consulta sob demanda:* GraphQL code-first, Apollo, DataLoader — `../carreira/perfil/recursos-estudo.md`, Fase 3.
+_Consulta sob demanda:_ GraphQL code-first, Apollo, DataLoader — `../carreira/perfil/recursos-estudo.md`, Fase 3.
 
 ---
 
@@ -183,14 +184,14 @@ Tarefas:
 - [ ] Testes de concorrência (criações simultâneas) e de idempotência (retry)
 - [ ] REST de pedidos: criar, listar, detalhar, aprovar, rejeitar, cancelar
 
-*Consulta sob demanda:* Redis, BullMQ, idempotência — `../carreira/perfil/recursos-estudo.md`, Fase 4.
+_Consulta sob demanda:_ Redis, BullMQ, idempotência — `../carreira/perfil/recursos-estudo.md`, Fase 4.
 
 ---
 
 ## Fase 5 — Testes e cobertura
 
 - **Escopo:** consolidar a suíte e medir cobertura dos fluxos críticos. **Fora:** código novo de produto.
-- **Tecnologias a implementar:** Jest (unit + e2e), supertest, cobertura com thresholds no CI.
+- **Tecnologias a implementar:** Vitest (unit + e2e), supertest, cobertura com thresholds no CI.
 - **Critério de pronto:** CI falha se a cobertura cair abaixo do limite; fluxos críticos (pedido,
   aprovação, estoque, auth) cobertos.
 - **Artefato:** PR de consolidação de testes + cobertura publicada no README.
@@ -201,10 +202,10 @@ Tarefas:
 - [ ] Revisar e completar testes unitários dos casos de uso
 - [ ] e2e dos fluxos críticos: pedido, aprovação, estoque, auth, GraphQL
 - [ ] Cenários de borda: limite de crédito exato, estoque no limite, payload inválido, sem permissão
-- [ ] Thresholds de cobertura no Jest e no CI
+- [ ] Thresholds de cobertura no Vitest e no CI
 - [ ] Cobertura reportada no README (badge ou tabela)
 
-*Consulta sob demanda:* Jest, e2e com supertest, thresholds — `../carreira/perfil/recursos-estudo.md`, Fase 5.
+_Consulta sob demanda:_ Vitest, e2e com supertest, thresholds — `../carreira/perfil/recursos-estudo.md`, Fase 5.
 
 ---
 
@@ -229,7 +230,7 @@ Tarefas:
 - [ ] README final: impacto do produto, domínio, decisões de arquitetura, como rodar, link da demo
 - [ ] Registrar o projeto em `../carreira/perfil/habilidades.md` e no índice de portfólio
 
-*Consulta sob demanda:* deploy, observabilidade, README — `../carreira/perfil/recursos-estudo.md`, Fase 6.
+_Consulta sob demanda:_ deploy, observabilidade, README — `../carreira/perfil/recursos-estudo.md`, Fase 6.
 
 ---
 
@@ -247,15 +248,15 @@ Tarefas:
 
 A 2h/dia (bloco 1), o projeto fecha em **4 a 5 semanas** (~18–22 dias úteis):
 
-| Fase | Estimativa |
-|---|---|
-| 0 — Fundação | 3–4 dias |
-| 1 — Domínio e camadas | 4–5 dias |
-| 2 — Auth e REST base | 4–5 dias |
-| 3 — GraphQL | 5–6 dias |
-| 4 — Pedidos e Redis | 4–5 dias |
-| 5 — Testes e cobertura | 3–4 dias |
-| 6 — Deploy e doc | 3–4 dias |
+| Fase                   | Estimativa |
+| ---------------------- | ---------- |
+| 0 — Fundação           | 3–4 dias   |
+| 1 — Domínio e camadas  | 4–5 dias   |
+| 2 — Auth e REST base   | 4–5 dias   |
+| 3 — GraphQL            | 5–6 dias   |
+| 4 — Pedidos e Redis    | 4–5 dias   |
+| 5 — Testes e cobertura | 3–4 dias   |
+| 6 — Deploy e doc       | 3–4 dias   |
 
 > Estimativas de referência, não compromisso: o funil tem precedência e pode empurrar a fase. Se
 > atrasar, ajuste aqui em vez de cortar o funil.

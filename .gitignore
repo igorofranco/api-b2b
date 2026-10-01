@@ -29,3 +29,6 @@ prisma/*.db-journal
 .idea
 .vscode/*
 !.vscode/extensions.json
+
+# Rascunhos e scaffold temporário (nunca commitar)
+tmp/

@@ -120,3 +120,20 @@ Formato: **Contexto → Decisão → Alternativas consideradas → Consequência
   ao que o usuário já opera; serverless — pouco aderente a Postgres/Redis persistentes e a WebSocket.
 - **Consequências:** reproduz a operação real do Larear (bom de entrevista); exige cuidar de segredos,
   backup e rollback; aumenta a superfície de infra a manter.
+
+## ADR nº 11 — Tooling de lint/teste: oxlint + Vitest (no lugar de ESLint + Jest)
+
+- **Contexto:** o Nest CLI 12 gera, por padrão, projeto **ESM + TypeScript 6** com **oxlint
+  (`--type-aware`)** e **Vitest**, já com cobertura. O plano de origem do `carreira` previa **ESLint
+  (flat) + Prettier** e **Jest** (Jest é um gap citado nas vagas, com 32 menções). Esse tooling-alvo
+  também impõe restrição de versão: `typescript-eslint` e `ts-jest` só suportam TypeScript abaixo de
+  6.1, o que obrigaria a fixar TS 6 e adaptar o Jest ao modo ESM.
+- **Decisão:** seguir o default do Nest 12 — **oxlint `--type-aware` + Prettier** para lint/formatação
+  e **Vitest** (unit + e2e, com cobertura) para testes. Decisão do usuário em 2026-10-01.
+- **Alternativas:** ESLint flat + Jest como no plano (mais fiel ao objetivo, porém exige fixar TS 6,
+  configurar Jest ESM e contrariar o default do Nest 12); manter oxlint e trocar só o Vitest por Jest
+  (mistura os dois, sem ganho).
+- **Consequências:** setup mais enxuto, rápido e alinhado ao framework; **o projeto deixa de
+  demonstrar Jest** — o gap "Jest (32 menções)" do `carreira` deixa de ser fechado por este repo e
+  precisa de alinhamento no plano de origem. O restante do stack-alvo (NestJS, Prisma, GraphQL,
+  Redis, Docker, CI/CD) permanece. Revisar com o `carreira` antes de mudar de novo.

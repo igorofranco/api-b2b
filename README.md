@@ -20,9 +20,9 @@ N+1.
 ## Por que ele existe
 
 Peça de portfólio que fecha, com código em produção, os gaps de maior frequência nas vagas alvo:
-**Node.js, CI/CD, GraphQL, Jest**, além de NestJS, Clean Architecture/SOLID e Prisma. O domínio
-(preço por contrato, limite de crédito, reserva de estoque, idempotência) existe para haver
-**regra de negócio real** a demonstrar, e não um CRUD.
+**Node.js, CI/CD e GraphQL**, além de NestJS, Clean Architecture/SOLID, Prisma e testes
+unitários/e2e. O domínio (preço por contrato, limite de crédito, reserva de estoque, idempotência)
+existe para haver **regra de negócio real** a demonstrar, e não um CRUD.
 
 ## Stack
 
@@ -31,34 +31,33 @@ Peça de portfólio que fecha, com código em produção, os gaps de maior frequ
 - **Persistência:** PostgreSQL + Prisma (migrations e seed)
 - **APIs:** REST versionado + GraphQL code-first (Apollo) com DataLoader
 - **Cache / idempotência:** Redis
-- **Testes:** Jest (unit) + supertest (e2e), cobertura no CI
+- **Testes:** Vitest (unit + e2e) + supertest, cobertura no CI
 - **Infra:** Docker Compose (dev) e Docker + systemd na VPS (produção), GitHub Actions
 
 ## Como rodar
 
-> Ainda não há código: o projeto está na **Fase 0 (Fundação)**. Este README será completado com os
-> comandos reais quando a fundação estiver de pé (ver `PLANO.md`).
+> A base está de pé (NestJS 12 + TS 6), mas Postgres/Redis e o `docker compose` entram ainda na Fase
+> 0/1 (ver `PLANO.md`). O bloco abaixo mostra o alvo final.
 
 ```bash
-# previsto
 cp .env.example .env
-docker compose up -d      # API + Postgres + Redis
 npm install
-npm run prisma:migrate
-npm run prisma:seed
 npm run start:dev
+
+# previsto (Fase 0/1): docker compose up -d  (API + Postgres + Redis)
+# previsto (Fase 1):   npm run prisma:migrate && npm run prisma:seed
 ```
 
-| Ação        | Comando                 |
-| ----------- | ----------------------- |
-| Dev         | `npm run start:dev`     |
-| Build       | `npm run build`         |
-| Typecheck   | `npm run typecheck`     |
-| Lint        | `npm run lint`          |
-| Formatar    | `npm run format`        |
-| Testes      | `npm run test`          |
-| Testes e2e  | `npm run test:e2e`      |
-| Cobertura   | `npm run test:coverage` |
+| Ação       | Comando                 |
+| ---------- | ----------------------- |
+| Dev        | `npm run start:dev`     |
+| Build      | `npm run build`         |
+| Typecheck  | `npm run typecheck`     |
+| Lint       | `npm run lint`          |
+| Formatar   | `npm run format`        |
+| Testes     | `npm run test`          |
+| Testes e2e | `npm run test:e2e`      |
+| Cobertura  | `npm run test:coverage` |
 
 ## Documentação
 

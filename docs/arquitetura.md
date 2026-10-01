@@ -121,16 +121,16 @@ Exemplo: `POST /api/v1/orders` (criar pedido).
 - Alternativa/complemento: `UPDATE ... SET reserved = reserved + :q WHERE on_hand - reserved >= :q`
   e checar linhas afetadas. A decisão final está na ADR nº 8.
 - **Idempotência:** a chave vai para uma `unique constraint` no banco **e** para o Redis (lock curto
-  + resposta armazenada), cobrindo corrida e retry. Detalhe na ADR nº 9.
+  - resposta armazenada), cobrindo corrida e retry. Detalhe na ADR nº 9.
 
 ## Testes por camada
 
-| Camada | Ferramenta | O que cobre |
-|---|---|---|
-| domain | Jest unit | invariantes, value objects, máquina de estados do pedido |
-| application | Jest unit + fakes | casos de uso com repositórios em memória (sem banco) |
-| infra | Jest integração | repositórios Prisma contra um Postgres de teste |
-| presentation | e2e (supertest / GraphQL) | fluxo HTTP completo: auth, validação, erros, status |
+| Camada       | Ferramenta                | O que cobre                                              |
+| ------------ | ------------------------- | -------------------------------------------------------- |
+| domain       | Vitest unit               | invariantes, value objects, máquina de estados do pedido |
+| application  | Vitest unit + fakes       | casos de uso com repositórios em memória (sem banco)     |
+| infra        | Vitest integração         | repositórios Prisma contra um Postgres de teste          |
+| presentation | e2e (supertest / GraphQL) | fluxo HTTP completo: auth, validação, erros, status      |
 
 Fluxos com **concorrência real** (estoque) e **idempotência** rodam em e2e com Postgres + Redis do
 Docker Compose, porque só o banco de verdade prova a proteção.
