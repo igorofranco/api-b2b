@@ -42,7 +42,7 @@ Detalhamento: domínio em `docs/dominio.md`, contratos em `docs/contratos-api.md
 | ---- | ------------------ | ------------ | ----------------------------------------------- |
 | 0    | Fundação           | concluída    | repo público + CI verde                         |
 | 1    | Domínio e camadas  | concluída    | domínio + persistência testados                 |
-| 2    | Auth e REST base   | não iniciada | PR auth + REST com e2e                          |
+| 2    | Auth e REST base   | concluída    | PR auth + REST com e2e                          |
 | 3    | GraphQL            | não iniciada | PR schema + DataLoader + teste de N+1           |
 | 4    | Pedidos e Redis    | não iniciada | PR fluxo de pedidos + concorrência/idempotência |
 | 5    | Testes e cobertura | não iniciada | PR consolidação + cobertura no README           |
@@ -127,18 +127,24 @@ _Consulta sob demanda:_ Clean Architecture, Prisma + NestJS, modelagem/indexaç�
 
 Tarefas:
 
-- [ ] Entidade `User` + persistência; hash de senha (bcrypt/argon2)
-- [ ] Login com JWT (access token) e guard de autenticação
-- [ ] RBAC: papéis `admin` / `cliente` com guards e decorator `@Roles`
-- [ ] DTOs validados (class-validator) e `ValidationPipe` global
-- [ ] Exception filter padronizando o envelope de erro (ver `docs/contratos-api.md`)
-- [ ] REST de clientes: listar (paginação/filtro), detalhar, criar, atualizar, ativar/inativar
-- [ ] REST de produtos: listar (paginação/filtro), detalhar, criar, atualizar, ativar/inativar
-- [ ] REST de tabelas de preço (vínculo cliente ↔ preços)
-- [ ] Documentação da API (Swagger/OpenAPI) exposta em `/docs`
-- [ ] Testes e2e (supertest): login, 401 sem token, 403 de papel, validação de payload
+- [x] Entidade `User` + persistência; hash de senha (bcrypt/argon2)
+- [x] Login com JWT (access token) e guard de autenticação
+- [x] RBAC: papéis `admin` / `cliente` com guards e decorator `@Roles`
+- [x] DTOs validados (class-validator) e `ValidationPipe` global
+- [x] Exception filter padronizando o envelope de erro (ver `docs/contratos-api.md`)
+- [x] REST de clientes: listar (paginação/filtro), detalhar, criar, atualizar, ativar/inativar
+- [x] REST de produtos: listar (paginação/filtro), detalhar, criar, atualizar, ativar/inativar
+- [x] REST de tabelas de preço (vínculo cliente ↔ preços)
+- [x] Documentação da API (Swagger/OpenAPI) exposta em `/docs`
+- [x] Testes e2e (supertest): login, 401 sem token, 403 de papel, validação de payload
 
 _Consulta sob demanda:_ NestJS auth/RBAC e validação — `../carreira/perfil/recursos-estudo.md`, Fase 2.
+
+> **Artefato (04/10):** commit `1bde9c8` — auth JWT (bcrypt + passport) com RBAC `admin`/`cliente`,
+> `ValidationPipe` global e `DomainExceptionFilter` (envelope do `contratos-api.md`); REST paginado de
+> clientes, produtos e tabelas de preço com Swagger em `/docs`; seed com usuários. 63 testes unitários
+>
+> - 17 e2e com Postgres real (login, 401 sem token, 403 de papel, validação e listagem).
 
 ---
 
