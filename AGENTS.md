@@ -114,12 +114,12 @@ Estrutura de pastas, fluxo de uma requisição e estratégia de testes: `docs/ar
 
 ## Estado atual
 
-- **Fase 0 (Fundação)** — em andamento.
-- Base no ar: NestJS 12 (ESM) + TypeScript 6 strict (+ checagens extras), `src/` e `test/` gerados.
+- **Fase 0 (Fundação)** — concluída. **Fase 1 (Domínio e camadas)** — em andamento.
+- Base no ar: NestJS 12 (ESM) + TypeScript 6 strict (+ checagens extras); `/health` respondendo.
+- Ambiente de dev: `Dockerfile` + `docker compose up` sobe a API.
+- CI: GitHub Actions roda `format:check`, `lint`, `typecheck`, `test`, `test:e2e` e `build` em push e PR.
 - Tooling de qualidade: oxlint `--type-aware`, Prettier, Vitest (unit + e2e) com cobertura — ver
   **ADR nº 11** (`docs/decisoes.md`).
-- `lint`, `typecheck`, `test`, `test:e2e`, `test:coverage`, `build` e `format:check` passando.
-- Pendente na Fase 0: endpoint `/health`, `Dockerfile`/`docker-compose.yml` e GitHub Actions.
 
 ## Comandos
 

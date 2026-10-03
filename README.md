@@ -36,17 +36,23 @@ existe para haver **regra de negócio real** a demonstrar, e não um CRUD.
 
 ## Como rodar
 
-> A base está de pé (NestJS 12 + TS 6), mas Postgres/Redis e o `docker compose` entram ainda na Fase
-> 0/1 (ver `PLANO.md`). O bloco abaixo mostra o alvo final.
+### Com Docker (recomendado)
+
+```bash
+cp .env.example .env
+docker compose up --build
+# API em http://localhost:3000/health
+```
+
+### Local (sem Docker)
 
 ```bash
 cp .env.example .env
 npm install
 npm run start:dev
-
-# previsto (Fase 0/1): docker compose up -d  (API + Postgres + Redis)
-# previsto (Fase 1):   npm run prisma:migrate && npm run prisma:seed
 ```
+
+> Postgres e Redis entram no `docker compose` junto com suas fases (ver `PLANO.md`).
 
 | Ação       | Comando                 |
 | ---------- | ----------------------- |

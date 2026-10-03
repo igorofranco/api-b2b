@@ -14,7 +14,7 @@ Marque os itens com [x] ao concluir cada um. Texto em pt-BR.
 > **Fonte da verdade de método e status:** `../carreira/projetos-portfolio/01-api-b2b/plano.md`.
 > Este arquivo é a cópia executável, com o detalhamento por tarefa.
 
-Atualizado em 2026-10-01.
+Atualizado em 2026-10-03.
 
 ## Regras do projeto
 
@@ -40,8 +40,8 @@ Detalhamento: domínio em `docs/dominio.md`, contratos em `docs/contratos-api.md
 
 | Fase | Nome               | Status       | Artefato                                        |
 | ---- | ------------------ | ------------ | ----------------------------------------------- |
-| 0    | Fundação           | em andamento | repo público + CI verde                         |
-| 1    | Domínio e camadas  | não iniciada | PR domínio + persistência testados              |
+| 0    | Fundação           | concluída    | repo público + CI verde                         |
+| 1    | Domínio e camadas  | em andamento | PR domínio + persistência testados              |
 | 2    | Auth e REST base   | não iniciada | PR auth + REST com e2e                          |
 | 3    | GraphQL            | não iniciada | PR schema + DataLoader + teste de N+1           |
 | 4    | Pedidos e Redis    | não iniciada | PR fluxo de pedidos + concorrência/idempotência |
@@ -70,11 +70,11 @@ Tarefas:
 - [x] Lint + Prettier configurados (`lint`, `format`, `format:check`) — oxlint type-aware (ADR nº 11)
 - [x] Testes configurados (unit + e2e) com script de cobertura — Vitest (ADR nº 11)
 - [x] `.env.example` com as variáveis de ambiente (sem segredos reais)
-- [ ] `Dockerfile` de dev e `docker-compose.yml` com a API (Postgres e Redis entram na Fase 1/4)
-- [ ] Endpoint de health (`/health`) respondendo
-- [ ] GitHub Actions: `lint + typecheck + test + build` em push e PR
-- [ ] README inicial (o que é, como rodar) e badge do CI
-- [ ] Repositório público no GitHub e CI verde no primeiro push
+- [x] `Dockerfile` de dev e `docker-compose.yml` com a API (Postgres e Redis entram na Fase 1/4)
+- [x] Endpoint de health (`/health`) respondendo
+- [x] GitHub Actions: `lint + typecheck + test + build` em push e PR
+- [x] README inicial (o que é, como rodar) e badge do CI
+- [x] Repositório público no GitHub e CI verde no primeiro push
 
 _Consulta sob demanda:_ NestJS fundamentos, TS strict, Vitest setup, Docker Compose, GitHub Actions —
 `../carreira/perfil/recursos-estudo.md`, Fase 0.
