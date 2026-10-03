@@ -1,0 +1,151 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum CustomerStatus {
+  ACTIVE
+  INACTIVE
+}
+
+enum ProductStatus {
+  ACTIVE
+  INACTIVE
+}
+
+enum OrderStatus {
+  PENDING_APPROVAL
+  CONFIRMED
+  REJECTED
+  CANCELLED
+}
+
+enum StockReservationStatus {
+  ACTIVE
+  RELEASED
+}
+
+model Customer {
+  id                String             @id @default(uuid())
+  name              String
+  cnpj              String             @unique
+  status            CustomerStatus     @default(ACTIVE)
+  creditLimit       Int                @map("credit_limit_cents")
+  priceTableId      String             @map("price_table_id")
+  priceTable        PriceTable         @relation(fields: [priceTableId], references: [id])
+  orders            Order[]
+  stockReservations StockReservation[]
+  createdAt         DateTime           @default(now()) @map("created_at")
+  updatedAt         DateTime           @updatedAt @map("updated_at")
+
+  @@index([status])
+  @@map("customers")
+}
+
+model Product {
+  id                String             @id @default(uuid())
+  sku               String             @unique
+  name              String
+  description       String?
+  unit              String
+  basePrice         Int                @map("base_price_cents")
+  status            ProductStatus      @default(ACTIVE)
+  priceItems        PriceTableItem[]
+  orderItems        OrderItem[]
+  stock             Stock?
+  stockReservations StockReservation[]
+  createdAt         DateTime           @default(now()) @map("created_at")
+  updatedAt         DateTime           @updatedAt @map("updated_at")
+
+  @@index([status])
+  @@map("products")
+}
+
+model PriceTable {
+  id        String           @id @default(uuid())
+  name      String
+  currency  String           @default("BRL")
+  validFrom DateTime         @map("valid_from")
+  validTo   DateTime?        @map("valid_to")
+  items     PriceTableItem[]
+  customers Customer[]
+  createdAt DateTime         @default(now()) @map("created_at")
+  updatedAt DateTime         @updatedAt @map("updated_at")
+
+  @@map("price_tables")
+}
+
+model PriceTableItem {
+  id           String     @id @default(uuid())
+  priceTableId String     @map("price_table_id")
+  priceTable   PriceTable @relation(fields: [priceTableId], references: [id], onDelete: Cascade)
+  productId    String     @map("product_id")
+  product      Product    @relation(fields: [productId], references: [id])
+  price        Int        @map("price_cents")
+
+  @@unique([priceTableId, productId])
+  @@map("price_table_items")
+}
+
+model Stock {
+  id               String   @id @default(uuid())
+  productId        String   @unique @map("product_id")
+  product          Product  @relation(fields: [productId], references: [id])
+  quantityOnHand   Int      @map("quantity_on_hand")
+  quantityReserved Int      @default(0) @map("quantity_reserved")
+  updatedAt        DateTime @updatedAt @map("updated_at")
+
+  @@map("stocks")
+}
+
+model Order {
+  id             String             @id @default(uuid())
+  customerId     String             @map("customer_id")
+  customer       Customer           @relation(fields: [customerId], references: [id])
+  status         OrderStatus
+  total          Int                @map("total_cents")
+  idempotencyKey String             @map("idempotency_key")
+  items          OrderItem[]
+  reservations   StockReservation[]
+  createdAt      DateTime           @default(now()) @map("created_at")
+  updatedAt      DateTime           @updatedAt @map("updated_at")
+
+  @@unique([customerId, idempotencyKey])
+  @@index([customerId, status])
+  @@map("orders")
+}
+
+model OrderItem {
+  id        String  @id @default(uuid())
+  orderId   String  @map("order_id")
+  order     Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  productId String  @map("product_id")
+  product   Product @relation(fields: [productId], references: [id])
+  quantity  Int
+  unitPrice Int     @map("unit_price_cents")
+  subtotal  Int     @map("subtotal_cents")
+
+  @@index([orderId])
+  @@map("order_items")
+}
+
+model StockReservation {
+  id         String                 @id @default(uuid())
+  orderId    String                 @map("order_id")
+  order      Order                  @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  productId  String                 @map("product_id")
+  product    Product                @relation(fields: [productId], references: [id])
+  customerId String                 @map("customer_id")
+  customer   Customer               @relation(fields: [customerId], references: [id])
+  quantity   Int
+  status     StockReservationStatus @default(ACTIVE)
+  createdAt  DateTime               @default(now()) @map("created_at")
+
+  @@index([orderId])
+  @@index([productId, status])
+  @@map("stock_reservations")
+}

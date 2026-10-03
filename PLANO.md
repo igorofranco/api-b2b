@@ -41,7 +41,7 @@ Detalhamento: domínio em `docs/dominio.md`, contratos em `docs/contratos-api.md
 | Fase | Nome               | Status       | Artefato                                        |
 | ---- | ------------------ | ------------ | ----------------------------------------------- |
 | 0    | Fundação           | concluída    | repo público + CI verde                         |
-| 1    | Domínio e camadas  | em andamento | PR domínio + persistência testados              |
+| 1    | Domínio e camadas  | concluída    | domínio + persistência testados                 |
 | 2    | Auth e REST base   | não iniciada | PR auth + REST com e2e                          |
 | 3    | GraphQL            | não iniciada | PR schema + DataLoader + teste de N+1           |
 | 4    | Pedidos e Redis    | não iniciada | PR fluxo de pedidos + concorrência/idempotência |
@@ -94,18 +94,23 @@ _Consulta sob demanda:_ NestJS fundamentos, TS strict, Vitest setup, Docker Comp
 
 Tarefas:
 
-- [ ] Entidades e value objects do domínio (cliente, produto, tabela de preço, pedido, item, estoque)
-- [ ] Invariantes de negócio no domínio (preço resolvido, disponibilidade, transição de status)
-- [ ] Interfaces de repositório no domínio (portas)
-- [ ] Casos de uso da Fase 1 com regra isolada da infra
-- [ ] Schema Prisma + relations + índices; primeira migration
-- [ ] Implementação Prisma dos repositórios + mapeadores (domínio ↔ persistência)
-- [ ] Seed de dados realistas (clientes, produtos, tabelas de preço, estoque)
-- [ ] Testes unitários dos casos de uso com repositórios em memória (sem banco)
-- [ ] Fakes/in-memory repositories reutilizáveis nos testes
+- [x] Entidades e value objects do domínio (cliente, produto, tabela de preço, pedido, item, estoque)
+- [x] Invariantes de negócio no domínio (preço resolvido, disponibilidade, transição de status)
+- [x] Interfaces de repositório no domínio (portas)
+- [x] Casos de uso da Fase 1 com regra isolada da infra
+- [x] Schema Prisma + relations + índices; primeira migration
+- [x] Implementação Prisma dos repositórios + mapeadores (domínio ↔ persistência)
+- [x] Seed de dados realistas (clientes, produtos, tabelas de preço, estoque)
+- [x] Testes unitários dos casos de uso com repositórios em memória (sem banco)
+- [x] Fakes/in-memory repositories reutilizáveis nos testes
 
 _Consulta sob demanda:_ Clean Architecture, Prisma + NestJS, modelagem/indexação Postgres —
 `../carreira/perfil/recursos-estudo.md`, Fase 1.
+
+> **Artefato (03/10):** domínio (`domain/`) com value objects, entidades, invariantes e portas;
+> casos de uso em `application/`; persistência Prisma + Postgres em `infra/` (migration `init`,
+> seed realista, locking de estoque com `SELECT ... FOR UPDATE`) e fakes in-memory. 44 testes
+> unitários sem banco (Vitest) + 5 e2e com Postgres real (inclui concorrência de estoque).
 
 ---
 

@@ -13,6 +13,25 @@ jobs:
   quality:
     name: lint + typecheck + test + build
     runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:17-alpine
+        env:
+          POSTGRES_USER: apib2b
+          POSTGRES_PASSWORD: apib2b
+          POSTGRES_DB: apib2b_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U apib2b -d apib2b_test"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+
+    env:
+      DATABASE_URL: postgresql://apib2b:apib2b@localhost:5432/apib2b_test?schema=public
+
     steps:
       - uses: actions/checkout@v4
 
@@ -23,6 +42,9 @@ jobs:
 
       - name: Instalar dependências
         run: npm ci
+
+      - name: Gerar client Prisma
+        run: npm run prisma:generate
 
       - name: Formatar (checagem)
         run: npm run format:check
@@ -36,7 +58,7 @@ jobs:
       - name: Testes unitários
         run: npm run test
 
-      - name: Testes e2e
+      - name: Testes e2e (Postgres real)
         run: npm run test:e2e
 
       - name: Build

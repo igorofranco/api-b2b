@@ -40,30 +40,41 @@ existe para haver **regra de negócio real** a demonstrar, e não um CRUD.
 
 ```bash
 cp .env.example .env
-docker compose up --build
+docker compose up --build -d
+docker compose exec api npm run prisma:deploy
+docker compose exec api npm run prisma:seed
 # API em http://localhost:3000/health
 ```
+
+O `docker compose` sobe a API, o PostgreSQL e o Redis. O `DATABASE_URL` do `.env` aponta para
+`localhost:5433` (porta do Postgres exposta para rodar migrations/seed da máquina local); dentro da
+rede do Compose a API fala com `postgres:5432`.
 
 ### Local (sem Docker)
 
 ```bash
 cp .env.example .env
+docker compose up -d postgres redis
 npm install
+npm run prisma:deploy
+npm run prisma:seed
 npm run start:dev
 ```
 
-> Postgres e Redis entram no `docker compose` junto com suas fases (ver `PLANO.md`).
+> `npm install` gera o client do Prisma automaticamente (`postinstall`).
 
-| Ação       | Comando                 |
-| ---------- | ----------------------- |
-| Dev        | `npm run start:dev`     |
-| Build      | `npm run build`         |
-| Typecheck  | `npm run typecheck`     |
-| Lint       | `npm run lint`          |
-| Formatar   | `npm run format`        |
-| Testes     | `npm run test`          |
-| Testes e2e | `npm run test:e2e`      |
-| Cobertura  | `npm run test:coverage` |
+| Ação       | Comando                  |
+| ---------- | ------------------------ |
+| Dev        | `npm run start:dev`      |
+| Build      | `npm run build`          |
+| Typecheck  | `npm run typecheck`      |
+| Lint       | `npm run lint`           |
+| Formatar   | `npm run format`         |
+| Testes     | `npm run test`           |
+| Testes e2e | `npm run test:e2e`       |
+| Cobertura  | `npm run test:coverage`  |
+| Migrations | `npm run prisma:migrate` |
+| Seed       | `npm run prisma:seed`    |
 
 ## Documentação
 

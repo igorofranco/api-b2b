@@ -20,6 +20,9 @@ pnpm-debug.log*
 # Testes e cobertura
 coverage
 
+# Cliente Prisma gerado
+src/generated
+
 # Banco local (Prisma)
 prisma/*.db
 prisma/*.db-journal

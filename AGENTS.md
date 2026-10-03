@@ -114,27 +114,32 @@ Estrutura de pastas, fluxo de uma requisição e estratégia de testes: `docs/ar
 
 ## Estado atual
 
-- **Fase 0 (Fundação)** — concluída. **Fase 1 (Domínio e camadas)** — em andamento.
+- **Fase 0 (Fundação)** — concluída. **Fase 1 (Domínio e camadas)** — concluída.
 - Base no ar: NestJS 12 (ESM) + TypeScript 6 strict (+ checagens extras); `/health` respondendo.
-- Ambiente de dev: `Dockerfile` + `docker compose up` sobe a API.
-- CI: GitHub Actions roda `format:check`, `lint`, `typecheck`, `test`, `test:e2e` e `build` em push e PR.
+- Domínio e persistência: value objects, entidades, invariantes e portas em `src/domain/`; casos de
+  uso em `src/application/`; Prisma + Postgres em `src/infra/persistence/prisma/` (migration e seed).
+- Ambiente de dev: `docker compose up` sobe a API, o Postgres e o Redis.
+- CI: GitHub Actions roda `prisma generate`, `format:check`, `lint`, `typecheck`, `test`, `test:e2e`
+  (com Postgres de serviço) e `build` em push e PR.
 - Tooling de qualidade: oxlint `--type-aware`, Prettier, Vitest (unit + e2e) com cobertura — ver
   **ADR nº 11** (`docs/decisoes.md`).
 
 ## Comandos
 
-> Implementados no `package.json` (Fase 0).
+> Implementados no `package.json`.
 
-| Ação       | Comando                 |
-| ---------- | ----------------------- |
-| Dev        | `npm run start:dev`     |
-| Build      | `npm run build`         |
-| Typecheck  | `npm run typecheck`     |
-| Lint       | `npm run lint`          |
-| Formatar   | `npm run format`        |
-| Testes     | `npm run test`          |
-| Testes e2e | `npm run test:e2e`      |
-| Cobertura  | `npm run test:coverage` |
+| Ação       | Comando                  |
+| ---------- | ------------------------ |
+| Dev        | `npm run start:dev`      |
+| Build      | `npm run build`          |
+| Typecheck  | `npm run typecheck`      |
+| Lint       | `npm run lint`           |
+| Formatar   | `npm run format`         |
+| Testes     | `npm run test`           |
+| Testes e2e | `npm run test:e2e`       |
+| Cobertura  | `npm run test:coverage`  |
+| Migrations | `npm run prisma:migrate` |
+| Seed       | `npm run prisma:seed`    |
 
 **Ao concluir qualquer alteração:** rode `npm run lint`, `npm run typecheck`, `npm run test` e
 `npm run build`. Não entregue com vermelho.

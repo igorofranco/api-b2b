@@ -9,5 +9,8 @@ export default defineConfig({
     root: './',
     include: ['test/**/*.e2e-spec.ts'],
     exclude: ['node_modules', 'dist', 'tmp'],
+    globalSetup: ['./test/global-setup.ts'],
+    setupFiles: ['./test/setup-e2e.ts'],
+    fileParallelism: false,
   },
 });
