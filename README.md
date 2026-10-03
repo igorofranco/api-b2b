@@ -76,6 +76,30 @@ npm run start:dev
 | Migrations | `npm run prisma:migrate` |
 | Seed       | `npm run prisma:seed`    |
 
+## Autenticação e REST
+
+A Fase 2 entrega login com JWT, autorização por papel (`admin`/`cliente`) e os endpoints REST de
+clientes, produtos e tabelas de preço (paginados). Toda rota, exceto login e `/health`, exige o
+header `Authorization: Bearer <jwt>`. A documentação interativa fica em
+[http://localhost:3000/docs](http://localhost:3000/docs).
+
+O seed cria dois usuários para desenvolvimento:
+
+| Papel     | E-mail                    | Senha        |
+| --------- | ------------------------- | ------------ |
+| `admin`   | `admin@api-b2b.dev`       | `admin123`   |
+| `cliente` | `compras@metalurgica.dev` | `cliente123` |
+
+```bash
+# Login e uso do token
+curl -s -X POST http://localhost:3000/api/v1/auth/login \
+  -H 'Content-Type: application/json' \
+  -d '{"email":"admin@api-b2b.dev","password":"admin123"}'
+
+curl -s http://localhost:3000/api/v1/customers?page=1&limit=20 \
+  -H "Authorization: Bearer <accessToken>"
+```
+
 ## Documentação
 
 - **Plano de construção e progresso:** [`PLANO.md`](PLANO.md)

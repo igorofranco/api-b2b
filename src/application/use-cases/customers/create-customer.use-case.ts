@@ -13,19 +13,12 @@ import { Cnpj } from '../../../domain/value-objects/cnpj.js';
 import { DomainError } from '../../../domain/errors/domain-error.js';
 import { NotFoundError } from '../../errors/application-errors.js';
 import { ID_GENERATOR, type IdGenerator } from '../../ports/id-generator.js';
+import type { CustomerOutput } from '../../dtos/customer-output.js';
+import { toCustomerOutput } from './customer.mapper.js';
 
 export interface CreateCustomerInput {
   name: string;
   cnpj: string;
-  creditLimitCents: number;
-  priceTableId: string;
-}
-
-export interface CustomerOutput {
-  id: string;
-  name: string;
-  cnpj: string;
-  status: string;
   creditLimitCents: number;
   priceTableId: string;
 }
@@ -64,13 +57,6 @@ export class CreateCustomerUseCase {
 
     await this.customers.save(customer);
 
-    return {
-      id: customer.id,
-      name: customer.name,
-      cnpj: customer.cnpj.value,
-      status: customer.status,
-      creditLimitCents: customer.creditLimit.cents,
-      priceTableId: customer.priceTableId,
-    };
+    return toCustomerOutput(customer);
   }
 }

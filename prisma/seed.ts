@@ -1,6 +1,12 @@
 import { randomUUID } from 'node:crypto';
+import * as bcrypt from 'bcrypt';
 import { PrismaPg } from '@prisma/adapter-pg';
 import { PrismaClient } from '../src/generated/prisma/client.js';
+
+export const ADMIN_EMAIL = 'admin@api-b2b.dev';
+export const ADMIN_PASSWORD = 'admin123';
+export const CUSTOMER_EMAIL = 'compras@metalurgica.dev';
+export const CUSTOMER_PASSWORD = 'cliente123';
 
 const CUSTOMER_IDS = {
   metalurgica: 'c0000000-0000-4000-8000-000000000001',
@@ -201,6 +207,7 @@ async function main(): Promise<void> {
       await transaction.order.deleteMany();
       await transaction.stock.deleteMany();
       await transaction.priceTableItem.deleteMany();
+      await transaction.user.deleteMany();
       await transaction.customer.deleteMany();
       await transaction.priceTable.deleteMany();
       await transaction.product.deleteMany();
@@ -305,10 +312,28 @@ async function main(): Promise<void> {
           },
         ],
       });
+
+      await transaction.user.createMany({
+        data: [
+          {
+            id: randomUUID(),
+            email: ADMIN_EMAIL,
+            passwordHash: await bcrypt.hash(ADMIN_PASSWORD, 12),
+            role: 'ADMIN',
+          },
+          {
+            id: randomUUID(),
+            email: CUSTOMER_EMAIL,
+            passwordHash: await bcrypt.hash(CUSTOMER_PASSWORD, 12),
+            role: 'CUSTOMER',
+            customerId: CUSTOMER_IDS.metalurgica,
+          },
+        ],
+      });
     });
 
     console.log(
-      'Seed concluído: 20 produtos, 3 tabelas de preço, 3 clientes e estoque.',
+      'Seed concluído: 20 produtos, 3 tabelas de preço, 3 clientes, estoque e 2 usuários.',
     );
   } finally {
     await prisma.$disconnect();

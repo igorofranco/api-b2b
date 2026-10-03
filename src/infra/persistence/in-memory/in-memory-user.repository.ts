@@ -1,0 +1,24 @@
+import type { User } from '../../../domain/entities/user.js';
+import type { UserRepository } from '../../../domain/repositories/user-repository.js';
+import type { Email } from '../../../domain/value-objects/email.js';
+
+export class InMemoryUserRepository implements UserRepository {
+  private readonly users = new Map<string, User>();
+
+  async findById(id: string): Promise<User | null> {
+    return this.users.get(id) ?? null;
+  }
+
+  async findByEmail(email: Email): Promise<User | null> {
+    for (const user of this.users.values()) {
+      if (user.email.equals(email)) {
+        return user;
+      }
+    }
+    return null;
+  }
+
+  async save(user: User): Promise<void> {
+    this.users.set(user.id, user);
+  }
+}

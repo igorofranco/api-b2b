@@ -5,6 +5,7 @@ import { InMemoryProductRepository } from './in-memory-product.repository.js';
 import { InMemoryStockRepository } from './in-memory-stock.repository.js';
 import { InMemoryStockReservationRepository } from './in-memory-stock-reservation.repository.js';
 import { InMemoryStockLock } from './in-memory-stock-lock.js';
+import { InMemoryUserRepository } from './in-memory-user.repository.js';
 import { CryptoIdGenerator } from '../../id/crypto-id-generator.js';
 
 export class InMemoryRepositories {
@@ -14,6 +15,7 @@ export class InMemoryRepositories {
   readonly orders = new InMemoryOrderRepository();
   readonly stocks = new InMemoryStockRepository();
   readonly reservations = new InMemoryStockReservationRepository();
+  readonly users = new InMemoryUserRepository();
   readonly stockLock = new InMemoryStockLock(this.stocks, this.reservations);
   readonly ids = new CryptoIdGenerator();
 }

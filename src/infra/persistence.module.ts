@@ -5,6 +5,7 @@ import { PRICE_TABLE_REPOSITORY } from '../domain/repositories/price-table-repos
 import { PRODUCT_REPOSITORY } from '../domain/repositories/product-repository.js';
 import { STOCK_REPOSITORY } from '../domain/repositories/stock-repository.js';
 import { STOCK_RESERVATION_REPOSITORY } from '../domain/repositories/stock-reservation-repository.js';
+import { USER_REPOSITORY } from '../domain/repositories/user-repository.js';
 import { STOCK_LOCK } from '../application/ports/stock-lock.js';
 import { ID_GENERATOR } from '../application/ports/id-generator.js';
 import { PrismaService } from './persistence/prisma/prisma.service.js';
@@ -14,6 +15,7 @@ import { PrismaPriceTableRepository } from './persistence/prisma/repositories/pr
 import { PrismaOrderRepository } from './persistence/prisma/repositories/prisma-order.repository.js';
 import { PrismaStockRepository } from './persistence/prisma/repositories/prisma-stock.repository.js';
 import { PrismaStockReservationRepository } from './persistence/prisma/repositories/prisma-stock-reservation.repository.js';
+import { PrismaUserRepository } from './persistence/prisma/repositories/prisma-user.repository.js';
 import { PrismaStockLock } from './persistence/prisma/prisma-stock-lock.js';
 import { CryptoIdGenerator } from './id/crypto-id-generator.js';
 
@@ -29,6 +31,7 @@ import { CryptoIdGenerator } from './id/crypto-id-generator.js';
       provide: STOCK_RESERVATION_REPOSITORY,
       useClass: PrismaStockReservationRepository,
     },
+    { provide: USER_REPOSITORY, useClass: PrismaUserRepository },
     { provide: STOCK_LOCK, useClass: PrismaStockLock },
     { provide: ID_GENERATOR, useClass: CryptoIdGenerator },
   ],
@@ -40,6 +43,7 @@ import { CryptoIdGenerator } from './id/crypto-id-generator.js';
     ORDER_REPOSITORY,
     STOCK_REPOSITORY,
     STOCK_RESERVATION_REPOSITORY,
+    USER_REPOSITORY,
     STOCK_LOCK,
     ID_GENERATOR,
   ],

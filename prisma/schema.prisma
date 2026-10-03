@@ -29,6 +29,11 @@ enum StockReservationStatus {
   RELEASED
 }
 
+enum UserRole {
+  ADMIN
+  CUSTOMER
+}
+
 model Customer {
   id                String             @id @default(uuid())
   name              String
@@ -39,11 +44,26 @@ model Customer {
   priceTable        PriceTable         @relation(fields: [priceTableId], references: [id])
   orders            Order[]
   stockReservations StockReservation[]
+  users             User[]
   createdAt         DateTime           @default(now()) @map("created_at")
   updatedAt         DateTime           @updatedAt @map("updated_at")
 
   @@index([status])
   @@map("customers")
+}
+
+model User {
+  id           String    @id @default(uuid())
+  email        String    @unique
+  passwordHash String    @map("password_hash")
+  role         UserRole
+  customerId   String?   @map("customer_id")
+  customer     Customer? @relation(fields: [customerId], references: [id])
+  createdAt    DateTime  @default(now()) @map("created_at")
+  updatedAt    DateTime  @updatedAt @map("updated_at")
+
+  @@index([customerId])
+  @@map("users")
 }
 
 model Product {

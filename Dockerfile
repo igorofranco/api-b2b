@@ -11,6 +11,8 @@ WORKDIR /app
 COPY package.json package-lock.json ./
 COPY prisma.config.ts ./
 COPY prisma ./prisma
+# O bcrypt é nativo e compila no Alpine; sem toolchain o `npm ci` falha.
+RUN apk add --no-cache python3 make g++
 RUN npm ci
 
 COPY . .

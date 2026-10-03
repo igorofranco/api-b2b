@@ -18,8 +18,8 @@ import { ID_GENERATOR, type IdGenerator } from '../../ports/id-generator.js';
 export interface CreatePriceTableInput {
   name: string;
   validFrom: Date;
-  validTo?: Date | null;
-  currency?: string;
+  validTo?: Date | null | undefined;
+  currency?: string | undefined;
 }
 
 export interface SetPriceTableItemsInput {

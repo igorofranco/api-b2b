@@ -7,7 +7,9 @@ import {
 import { Product } from '../../../domain/entities/product.js';
 import { Stock } from '../../../domain/entities/stock.js';
 import { StockReservation } from '../../../domain/entities/stock-reservation.js';
+import { User, type UserRole } from '../../../domain/entities/user.js';
 import { Cnpj } from '../../../domain/value-objects/cnpj.js';
+import { Email } from '../../../domain/value-objects/email.js';
 import { IdempotencyKey } from '../../../domain/value-objects/idempotency-key.js';
 import { Money } from '../../../domain/value-objects/money.js';
 import { Quantity } from '../../../domain/value-objects/quantity.js';
@@ -83,6 +85,16 @@ export interface StockReservationRecord {
   quantity: number;
   status: 'ACTIVE' | 'RELEASED';
   createdAt: Date;
+}
+
+export interface UserRecord {
+  id: string;
+  email: string;
+  passwordHash: string;
+  role: UserRole;
+  customerId: string | null;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 export const CustomerMapper = {
@@ -219,6 +231,32 @@ export const StockReservationMapper = {
       quantity: reservation.quantity.value,
       status: reservation.status,
       createdAt: reservation.createdAt,
+    };
+  },
+};
+
+export const UserMapper = {
+  toDomain(record: UserRecord): User {
+    return User.create({
+      id: record.id,
+      email: Email.create(record.email),
+      passwordHash: record.passwordHash,
+      role: record.role,
+      customerId: record.customerId,
+      createdAt: record.createdAt,
+      updatedAt: record.updatedAt,
+    });
+  },
+
+  toRecord(user: User): UserRecord {
+    return {
+      id: user.id,
+      email: user.email.value,
+      passwordHash: user.passwordHash,
+      role: user.role,
+      customerId: user.customerId,
+      createdAt: user.createdAt,
+      updatedAt: user.updatedAt,
     };
   },
 };

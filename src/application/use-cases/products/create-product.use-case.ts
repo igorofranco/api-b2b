@@ -8,6 +8,8 @@ import { Money } from '../../../domain/value-objects/money.js';
 import { Sku } from '../../../domain/value-objects/sku.js';
 import { DomainError } from '../../../domain/errors/domain-error.js';
 import { ID_GENERATOR, type IdGenerator } from '../../ports/id-generator.js';
+import type { ProductOutput } from '../../dtos/product-output.js';
+import { toProductOutput } from './product.mapper.js';
 
 export interface CreateProductInput {
   sku: string;
@@ -15,16 +17,6 @@ export interface CreateProductInput {
   description?: string | null;
   unit: string;
   basePriceCents: number;
-}
-
-export interface ProductOutput {
-  id: string;
-  sku: string;
-  name: string;
-  description: string | null;
-  unit: string;
-  basePriceCents: number;
-  status: string;
 }
 
 @Injectable()
@@ -55,14 +47,6 @@ export class CreateProductUseCase {
 
     await this.products.save(product);
 
-    return {
-      id: product.id,
-      sku: product.sku.value,
-      name: product.name,
-      description: product.description,
-      unit: product.unit,
-      basePriceCents: product.basePrice.cents,
-      status: product.status,
-    };
+    return toProductOutput(product);
   }
 }
